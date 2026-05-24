@@ -1,0 +1,639 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* QuizMaster Millionaire - Premium Game Show Design System */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+  :root {
+    /* Core Brand Colors - Deep Purple/Blue Stage Lighting */
+    --background: 260 70% 8%;
+    --foreground: 45 100% 95%;
+    
+    /* Stage purple gradient base */
+    --stage-purple: 263 78% 35%;
+    --stage-purple-dark: 265 85% 15%;
+    --stage-blue: 240 70% 25%;
+    --stage-blue-dark: 245 80% 12%;
+    
+    /* Primary - Royal Purple */
+    --primary: 263 78% 40%;
+    --primary-foreground: 45 100% 95%;
+    
+    /* Accent - Premium Gold */
+    --accent-gold: 48 100% 60%;
+    --accent-gold-bright: 48 100% 70%;
+    --accent-gold-dim: 45 80% 45%;
+    
+    /* Secondary - Deep Blue */
+    --secondary: 240 60% 20%;
+    --secondary-foreground: 45 100% 95%;
+    
+    /* Muted - Stage shadows */
+    --muted: 260 40% 15%;
+    --muted-foreground: 260 20% 60%;
+    
+    /* Game state colors */
+    --correct: 145 80% 42%;
+    --correct-foreground: 0 0% 100%;
+    --wrong: 4 90% 55%;
+    --wrong-foreground: 0 0% 100%;
+    
+    /* Card surfaces */
+    --card: 260 60% 12%;
+    --card-foreground: 45 100% 95%;
+    
+    /* Popover */
+    --popover: 260 65% 10%;
+    --popover-foreground: 45 100% 95%;
+    
+    /* Destructive */
+    --destructive: 4 90% 55%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Borders & inputs */
+    --border: 263 50% 25%;
+    --input: 263 50% 20%;
+    --ring: 48 100% 60%;
+    
+    --radius: 0.75rem;
+    
+    /* Sidebar - Purple themed */
+    --sidebar-background: 263 78% 18%;
+    --sidebar-foreground: 45 100% 95%;
+    --sidebar-primary: 48 100% 60%;
+    --sidebar-primary-foreground: 260 70% 8%;
+    --sidebar-accent: 263 60% 25%;
+    --sidebar-accent-foreground: 45 100% 95%;
+    --sidebar-border: 263 50% 30%;
+    --sidebar-ring: 48 100% 60%;
+    
+    /* Spotlight effects */
+    --spotlight-primary: 263 80% 50%;
+    --spotlight-secondary: 48 100% 60%;
+    
+    /* Timer colors */
+    --timer-safe: 145 80% 50%;
+    --timer-warning: 45 100% 55%;
+    --timer-danger: 4 90% 55%;
+    
+    /* Money ladder */
+    --ladder-active: 48 100% 60%;
+    --ladder-milestone: 48 100% 70%;
+    --ladder-passed: 263 60% 45%;
+    --ladder-upcoming: 260 30% 25%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Stage background with spotlight effect */
+  .stage-background {
+    background: 
+      radial-gradient(ellipse 80% 50% at 50% 0%, hsl(var(--spotlight-primary) / 0.3) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 30% 20%, hsl(var(--spotlight-secondary) / 0.15) 0%, transparent 40%),
+      radial-gradient(ellipse 60% 40% at 70% 30%, hsl(var(--spotlight-primary) / 0.15) 0%, transparent 40%),
+      linear-gradient(180deg, hsl(var(--stage-purple-dark)) 0%, hsl(var(--stage-blue-dark)) 50%, hsl(260 80% 5%) 100%);
+  }
+  
+  /* Glowing orbs */
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+  
+  .glow-orb-purple {
+    background: hsl(var(--spotlight-primary) / 0.4);
+  }
+  
+  .glow-orb-gold {
+    background: hsl(var(--spotlight-secondary) / 0.3);
+  }
+  
+  /* Premium button styles */
+  .btn-gold {
+    @apply relative overflow-hidden font-bold;
+    background: linear-gradient(135deg, hsl(var(--accent-gold)) 0%, hsl(var(--accent-gold-bright)) 50%, hsl(var(--accent-gold)) 100%);
+    color: hsl(260 80% 10%);
+    text-shadow: 0 1px 0 hsl(48 100% 75% / 0.5);
+    box-shadow: 
+      0 4px 15px hsl(var(--accent-gold) / 0.4),
+      0 1px 3px hsl(0 0% 0% / 0.3),
+      inset 0 1px 0 hsl(48 100% 80% / 0.5);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 8px 25px hsl(var(--accent-gold) / 0.5),
+      0 2px 6px hsl(0 0% 0% / 0.3),
+      inset 0 1px 0 hsl(48 100% 80% / 0.5);
+  }
+  
+  .btn-gold:active {
+    transform: translateY(0);
+  }
+  
+  /* Purple button */
+  .btn-purple {
+    @apply relative overflow-hidden font-semibold;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(263 80% 50%) 100%);
+    color: hsl(var(--primary-foreground));
+    box-shadow: 
+      0 4px 15px hsl(var(--primary) / 0.4),
+      inset 0 1px 0 hsl(263 80% 60% / 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .btn-purple:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 8px 25px hsl(var(--primary) / 0.5),
+      inset 0 1px 0 hsl(263 80% 60% / 0.3);
+  }
+  
+  /* Glass card effect */
+  .glass-card {
+    background: hsl(var(--card) / 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border) / 0.5);
+    box-shadow: 
+      0 8px 32px hsl(0 0% 0% / 0.3),
+      inset 0 1px 0 hsl(var(--accent-gold) / 0.1);
+  }
+  
+  /* Money ladder styling */
+  .ladder-step {
+    @apply relative px-4 py-2 rounded-lg transition-all duration-300;
+    background: hsl(var(--ladder-upcoming) / 0.5);
+    border: 1px solid transparent;
+  }
+  
+  .ladder-step.active {
+    background: linear-gradient(135deg, hsl(var(--ladder-active) / 0.3) 0%, hsl(var(--ladder-active) / 0.1) 100%);
+    border-color: hsl(var(--ladder-active));
+    box-shadow: 0 0 20px hsl(var(--ladder-active) / 0.4);
+  }
+  
+  .ladder-step.milestone {
+    border-color: hsl(var(--ladder-milestone) / 0.5);
+    background: hsl(var(--ladder-milestone) / 0.15);
+  }
+  
+  .ladder-step.passed {
+    background: hsl(var(--ladder-passed) / 0.3);
+    border-color: hsl(var(--ladder-passed) / 0.3);
+  }
+  
+  /* Timer ring */
+  .timer-ring {
+    stroke-linecap: round;
+    transition: stroke 0.3s ease;
+  }
+  
+  .timer-safe {
+    stroke: hsl(var(--timer-safe));
+  }
+  
+  .timer-warning {
+    stroke: hsl(var(--timer-warning));
+  }
+  
+  .timer-danger {
+    stroke: hsl(var(--timer-danger));
+    animation: pulse-danger 0.5s ease-in-out infinite;
+  }
+  
+  /* Answer options */
+  .answer-option {
+    @apply relative overflow-hidden rounded-xl px-6 py-4 cursor-pointer transition-all duration-300;
+    background: hsl(var(--card) / 0.8);
+    border: 2px solid hsl(var(--border));
+    backdrop-filter: blur(8px);
+  }
+  
+  .answer-option:hover:not(.disabled):not(.selected) {
+    border-color: hsl(var(--accent-gold) / 0.6);
+    background: hsl(var(--card));
+    transform: translateX(4px);
+    box-shadow: 0 4px 20px hsl(var(--accent-gold) / 0.2);
+  }
+  
+  .answer-option.selected {
+    border-color: hsl(var(--accent-gold));
+    background: hsl(var(--accent-gold) / 0.15);
+  }
+  
+  .answer-option.correct {
+    border-color: hsl(var(--correct));
+    background: hsl(var(--correct));
+    color: hsl(var(--correct-foreground));
+    animation: correct-flash 0.5s ease;
+  }
+  
+  .answer-option.correct .font-bold {
+    color: hsl(var(--correct-foreground));
+  }
+
+  .answer-option.wrong {
+    border-color: hsl(var(--wrong));
+    background: hsl(var(--wrong));
+    color: hsl(var(--wrong-foreground));
+    animation: wrong-shake 0.5s ease;
+  }
+  
+  .answer-option.wrong .font-bold {
+    color: hsl(var(--wrong-foreground));
+  }
+  
+  .answer-option.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  
+  /* Lifeline button */
+  .lifeline-btn {
+    @apply relative flex flex-col items-center justify-center p-3 rounded-xl transition-all duration-300;
+    background: hsl(var(--secondary) / 0.8);
+    border: 2px solid hsl(var(--border));
+  }
+  
+  .lifeline-btn:hover:not(.used) {
+    border-color: hsl(var(--accent-gold) / 0.6);
+    background: hsl(var(--secondary));
+    transform: scale(1.05);
+  }
+  
+  .lifeline-btn.used {
+    opacity: 0.3;
+    cursor: not-allowed;
+    filter: grayscale(1);
+  }
+
+  /* Compact lifeline button */
+  .lifeline-btn-compact {
+    @apply relative flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300;
+    background: hsl(var(--secondary) / 0.8);
+    border: 2px solid hsl(var(--border));
+    color: hsl(var(--accent-gold));
+  }
+  
+  .lifeline-btn-compact:hover:not(.used) {
+    border-color: hsl(var(--accent-gold) / 0.6);
+    background: hsl(var(--secondary));
+    transform: scale(1.05);
+  }
+  
+  .lifeline-btn-compact.used {
+    opacity: 0.3;
+    cursor: not-allowed;
+    filter: grayscale(1);
+  }
+  
+  /* Spotlight beam */
+  .spotlight-beam {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent 0deg, hsl(var(--spotlight-primary) / 0.1) 10deg, transparent 20deg);
+    animation: rotate-spotlight 20s linear infinite;
+  }
+  
+  /* Text glow */
+  .text-glow-gold {
+    text-shadow: 0 0 20px hsl(var(--accent-gold) / 0.5), 0 0 40px hsl(var(--accent-gold) / 0.3);
+  }
+  
+  .text-glow-purple {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.5), 0 0 40px hsl(var(--primary) / 0.3);
+  }
+  
+  /* CTA glow pulse animation */
+  .cta-glow-pulse {
+    animation: cta-glow 2s ease-in-out infinite;
+  }
+
+  /* Premium badge */
+  .premium-badge {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider;
+    background: linear-gradient(135deg, hsl(var(--accent-gold)) 0%, hsl(var(--accent-gold-bright)) 100%);
+    color: hsl(260 80% 10%);
+    box-shadow: 0 2px 10px hsl(var(--accent-gold) / 0.4);
+  }
+}
+
+@layer utilities {
+  /* Gradient text */
+  .gradient-text-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--accent-gold)) 0%, hsl(var(--accent-gold-bright)) 50%, hsl(var(--accent-gold)) 100%);
+  }
+  
+  .gradient-text-purple {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(263 80% 60%) 0%, hsl(263 80% 70%) 100%);
+  }
+  
+  /* Animations */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-pulse-subtle {
+    animation: pulse-subtle 2s ease-in-out infinite;
+  }
+  
+  .animate-heartbeat {
+    animation: heartbeat 1s ease-in-out infinite;
+  }
+  
+  .animate-spotlight {
+    animation: spotlight-sweep 8s ease-in-out infinite;
+  }
+}
+
+/* Keyframe animations */
+@keyframes carousel-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+@keyframes pulse-danger {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes correct-flash {
+  0%, 100% { box-shadow: 0 0 0 hsl(var(--correct) / 0); }
+  50% { box-shadow: 0 0 30px hsl(var(--correct) / 0.6); }
+}
+
+@keyframes wrong-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15%, 30% { transform: scale(1.1); }
+}
+
+@keyframes rotate-spotlight {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spotlight-sweep {
+  0%, 100% { opacity: 0.3; transform: translateX(-20%) rotate(-15deg); }
+  50% { opacity: 0.6; transform: translateX(20%) rotate(15deg); }
+}
+
+@keyframes cta-glow {
+  0%, 100% { box-shadow: 0 4px 20px hsl(48 100% 60% / 0.4), inset 0 1px 0 hsl(48 100% 80% / 0.5); }
+  50% { box-shadow: 0 4px 30px hsl(48 100% 60% / 0.7), 0 0 40px hsl(48 100% 60% / 0.3), inset 0 1px 0 hsl(48 100% 80% / 0.5); }
+}
+
+/* ===== LEADERBOARD PREMIUM ANIMATIONS ===== */
+
+/* Blur container for locked leaderboard */
+.leaderboard-blur-container {
+  filter: blur(6px);
+  opacity: 0.7;
+  transition: all 0.5s ease-out;
+}
+
+.leaderboard-blur-container:hover {
+  filter: blur(4px);
+  opacity: 0.8;
+}
+
+/* Individual row blur animation */
+.leaderboard-row-blur {
+  animation: row-pulse-blur 3s ease-in-out infinite;
+}
+
+@keyframes row-pulse-blur {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.6; }
+}
+
+/* Lock icon glow animation */
+.lock-icon-glow {
+  animation: lock-glow 2s ease-in-out infinite;
+}
+
+@keyframes lock-glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px hsl(var(--accent-gold) / 0.3), 0 0 40px hsl(var(--accent-gold) / 0.1);
+  }
+  50% { 
+    box-shadow: 0 0 30px hsl(var(--accent-gold) / 0.5), 0 0 60px hsl(var(--accent-gold) / 0.2);
+  }
+}
+
+/* CTA button shimmer effect */
+.unlock-btn-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(48 100% 90% / 0.3),
+    transparent
+  );
+  animation: shimmer-slide 3s ease-in-out infinite;
+}
+
+@keyframes shimmer-slide {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
+}
+
+/* Gold pulse border on hover */
+.gold-pulse-border {
+  animation: gold-border-pulse 2s ease-in-out infinite;
+}
+
+@keyframes gold-border-pulse {
+  0%, 100% { border-color: hsl(var(--accent-gold) / 0.2); }
+  50% { border-color: hsl(var(--accent-gold) / 0.4); }
+}
+
+/* Leaderboard reveal animation */
+.leaderboard-reveal {
+  animation: reveal-glow 0.8s ease-out forwards;
+}
+
+@keyframes reveal-glow {
+  0% { 
+    filter: blur(8px);
+    opacity: 0.5;
+  }
+  100% { 
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+/* Individual row slide-up reveal */
+@keyframes slideUpReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.leaderboard-row {
+  animation: slideUpReveal 0.5s ease-out forwards;
+}
+
+/* Gold shimmer pass effect */
+.gold-shimmer-pass {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--accent-gold) / 0.3) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-pass 1.5s ease-out forwards;
+}
+
+@keyframes shimmer-pass {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Monthly rewards glow */
+.rewards-glow {
+  animation: rewards-border-glow 3s ease-in-out infinite;
+}
+
+@keyframes rewards-border-glow {
+  0%, 100% { 
+    box-shadow: 0 0 10px hsl(var(--accent-gold) / 0.2);
+    border-color: hsl(var(--accent-gold) / 0.3);
+  }
+  50% { 
+    box-shadow: 0 0 20px hsl(var(--accent-gold) / 0.3);
+    border-color: hsl(var(--accent-gold) / 0.5);
+  }
+}
+
+/* Countdown tick animation */
+.countdown-tick {
+  animation: tick 1s ease-out;
+}
+
+@keyframes tick {
+  0% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Hall of Fame museum card */
+.museum-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.museum-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--accent-gold) / 0.5),
+    transparent
+  );
+}
+
+/* Hall of Fame card hover effect */
+.hall-of-fame-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.hall-of-fame-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(
+    135deg,
+    hsl(var(--accent-gold) / 0.1) 0%,
+    transparent 50%
+  );
+  transition: opacity 0.5s ease;
+}
+
+.hall-of-fame-card:hover::after {
+  opacity: 1;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.7);
+}
